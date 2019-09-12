@@ -20,6 +20,9 @@ import 'iview/dist/styles/iview.css';
 Vue.use(iView);
 
 
+// leaflet
+
+
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -36,6 +39,14 @@ Icon.Default.mergeOptions({
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
+
+
+// elementui
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+
 
 // 注册全局的组件
 // import testcom from '../test/02.test.vue'

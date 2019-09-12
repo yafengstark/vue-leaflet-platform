@@ -1,104 +1,11 @@
 <template>
     <div class="app-container">
 
+        <!-- header导航栏 -->
 
+        <!-- center 列表区 -->
 
-        <!-- 左侧导航区域 -->
-
-        <Menu theme="dark" class="app-nav">
-            <Submenu name="0">
-
-                <template slot="title">
-                    <router-link  tag="span" to="/">
-                        数字地球平台
-                    </router-link>
-                </template>
-            </Submenu>
-            <Submenu name="1">
-
-                <template slot="title">
-                    <Icon type="ios-paper"/>
-                    <router-link tag="span" to="/layer">
-                        图层
-                    </router-link>
-                </template>
-
-            </Submenu>
-            <Submenu name="2">
-                <template slot="title">
-
-                    <router-link  tag="span" to="/view">
-                        <Icon type="md-eye" color="white"/>
-                        视角
-                    </router-link>
-                </template>
-            </Submenu>
-            <Submenu name="3">
-                <template slot="title">
-
-                    <router-link  tag="span" to="/meature">
-                        <Icon type="ios-people"/>
-                        量测
-                    </router-link>
-
-                </template>
-            </Submenu>
-            <Submenu name="3">
-                <template slot="title">
-                    <router-link  tag="span" to="/terrain">
-                        <Icon type="ios-people"/>
-                        地形
-                    </router-link>
-
-                </template>
-            </Submenu>
-            <Submenu name="4">
-                <template slot="title">
-                    <Icon type="ios-people"/>
-
-                    <router-link  tag="span" to="/model">
-                        三维
-                    </router-link>
-                </template>
-            </Submenu>
-            <Submenu name="5">
-                <template slot="title">
-
-                    <router-link  tag="span" to="/mark">
-                        <Icon type="md-flag" color="white"/>
-                        标注
-                    </router-link>
-
-                </template>
-            </Submenu>
-            <Submenu name="6">
-                <template slot="title">
-
-                    <router-link  tag="span" to="/data">
-                        <Icon type="md-folder" color="white"/>
-                        数据
-                    </router-link>
-                </template>
-            </Submenu>
-            <Submenu name="7">
-                <template slot="title">
-
-                    <router-link  tag="span" to="/setting">
-                        <Icon type="ios-settings-outline"  color="white"/>
-                        设置
-                    </router-link>
-                </template>
-            </Submenu>
-        </Menu>
-
-
-        <!-- 路由的容器 -->
-        <transition class="app-view" >
-            <router-view></router-view>
-        </transition>
-
-        <!-- 地球容器 -->
-        <cesium-container></cesium-container>
+        <!-- right 操作区 -->
 
 
     </div>
@@ -109,7 +16,7 @@
     import {mapGetters} from "vuex";
 
 
-    import CesiumContainer from './subcomponents/CesiumContainer.vue'
+
 
 
     export default {
@@ -136,7 +43,7 @@
 
         },
         components: {
-            CesiumContainer
+
         }
     };
 </script>

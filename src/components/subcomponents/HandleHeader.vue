@@ -2,7 +2,12 @@
     <div class="header-container">
         <div class="layer-header">
             <span class="title">&nbsp;&nbsp;{{ title }}</span>
-            <span><Button type="text" @click="close"><Icon type="ios-close" /></Button></span>
+            <span></span>
+
+            <span>
+                <!--<Button type="text" @click="close"><Icon type="ios-arrow-dropright" /></Button>-->
+                <Button type="text" @click="close"><Icon type="ios-close" /></Button>
+            </span>
         </div>
         <hr>
     </div>

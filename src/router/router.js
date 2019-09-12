@@ -11,6 +11,10 @@ import TerrainContainer from './components/tabbar/TerrainContainer.vue'
 import ViewContainer from './components/tabbar/ViewContainer.vue'
 
 // 创建路由对象
+
+//
+
+
 const router = new VueRouter({
   routes: [
       { path: '/'},
