@@ -4,20 +4,19 @@
         <Layout>
             <Content class='target-list-scroll'>
                 <Scroll :on-reach-bottom="handleReachBottom" class="scroll">
-                    <Card dis-hover v-for="(item, index) in list1" :key="index">
+                    <Card dis-hover v-for="(item, index) in targetList" :key="index">
 
                         <h1>
                             {{ item.name }}
                         </h1>
-                        <h2>
-                            {{item.pk_id}}
-                        </h2>
-                        <h2>
-                            {{item.lat}}, {{ item.lon}}
-                        </h2>
-                        <p> {{ item.summarize }}</p>
-                        <p> {{ item.description }}</p>
-                        <p>{{ item.clazz_code.name }}</p>
+                        <p>
+                            自编号: {{item.pk_id}}
+                        </p>
+                        <p>
+                            位置：{{item.lat}}, {{ item.lon}}
+                        </p>
+                        <p> 概述：{{ item.summarize }}</p>
+                        <p> 分类：{{ item.clazz_code.name }}</p>
                     </Card>
                 </Scroll>
 
@@ -29,162 +28,45 @@
         </Layout>
 
 
-
-
-
     </div>
 </template>
 
 <script>
     // 导入自己封装的轮播图子组件
+    import {mapActions, mapState} from 'vuex'
 
     import Handle from '../Handle.vue'
 
     import MyBackTop from '../MyBackTop.vue'
 
+
     export default {
         data() {
             return {
-                list1: [{
-                    pk_id: 1,
-                    name: '上海市公司',
-                    lat: 120,
-                    lon: 120,
-                    summarize: '100人',
-                    description: '是第一个成立的子公司',
-                    clazz_code: {
-                        id: 100,
-                        name: '一级部门'
-                    }
-                }, {
-                    pk_id: 1,
-                    name: '上海市公司',
-                    lat: 120,
-                    lon: 120,
-                    summarize: '100人',
-                    description: '是第一个成立的子公司',
-                    clazz_code: {
-                        id: 100,
-                        name: '一级部门'
-                    }
-                }, {
-                    pk_id: 1,
-                    name: '上海市公司',
-                    lat: 120,
-                    lon: 120,
-                    summarize: '100人',
-                    description: '是第一个成立的子公司',
-                    clazz_code: {
-                        id: 100,
-                        name: '一级部门'
-                    }
-                }, {
-                    pk_id: 1,
-                    name: '上海市公司',
-                    lat: 120,
-                    lon: 120,
-                    summarize: '100人',
-                    description: '是第一个成立的子公司',
-                    clazz_code: {
-                        id: 100,
-                        name: '一级部门'
-                    }
-                }, {
-                    pk_id: 1,
-                    name: '上海市公司',
-                    lat: 120,
-                    lon: 120,
-                    summarize: '100人',
-                    description: '是第一个成立的子公司',
-                    clazz_code: {
-                        id: 100,
-                        name: '一级部门'
-                    }
-                }
-                    , {
-                        pk_id: 1,
-                        name: '上海市公司',
-                        lat: 120,
-                        lon: 120,
-                        summarize: '100人',
-                        description: '是第一个成立的子公司',
-                        clazz_code: {
-                            id: 100,
-                            name: '一级部门'
-                        }
-                    }, {
-                        pk_id: 1,
-                        name: '上海市公司',
-                        lat: 120,
-                        lon: 120,
-                        summarize: '100人',
-                        description: '是第一个成立的子公司',
-                        clazz_code: {
-                            id: 100,
-                            name: '一级部门'
-                        }
-                    }, {
-                        pk_id: 1,
-                        name: '上海市公司',
-                        lat: 120,
-                        lon: 120,
-                        summarize: '100人',
-                        description: '是第一个成立的子公司',
-                        clazz_code: {
-                            id: 100,
-                            name: '一级部门'
-                        }
-                    }, {
-                        pk_id: 1,
-                        name: '上海市公司',
-                        lat: 120,
-                        lon: 120,
-                        summarize: '100人',
-                        description: '是第一个成立的子公司',
-                        clazz_code: {
-                            id: 100,
-                            name: '一级部门'
-                        }
-                    }, {
-                        pk_id: 1,
-                        name: '上海市公司',
-                        lat: 120,
-                        lon: 120,
-                        summarize: '100人',
-                        description: '是第一个成立的子公司',
-                        clazz_code: {
-                            id: 100,
-                            name: '一级部门'
-                        }
-                    }]
             }
         },
-        created() {
+        mounted() {
 
+            this.$store.commit('setMessageView', this.$Message);
+
+//            this.getMarkList();
+            this.$store.dispatch('getMarkList')
+
+        },
+        computed: {
+            ...mapState(['targetList']),
+            ...mapActions(['getMarkList']),
         },
         methods: {
             handleReachBottom() {
+
                 return new Promise(resolve => {
                     setTimeout(() => {
-                        const last = this.list1[this.list1.length - 1];
-                        for (let i = 1; i < 11; i++) {
-                            this.list1.push(
-                                {
-                                    pk_id: i,
-                                    name: '上海市公司',
-                                    lat: 120,
-                                    lon: 120,
-                                    summarize: '100人',
-                                    description: '是第一个成立的子公司',
-                                    clazz_code: {
-                                        id: 100,
-                                        name: '一级部门'
-                                    }
-                                }
-                            );
-                        }
+
+                        this.$store.commit('pageIndexIncrement');
+                        this.$store.dispatch('getMarkList');
                         resolve();
-                    }, 2000);
+                    }, 1);
                 });
             }
         },
@@ -201,14 +83,14 @@
     .target-list-container {
         /*height: 90%;*/
         margin-right: 10px;
-        height: 2000px;
+        height: 1500px;
 
         .ivu-scroll-container {
-            height: 2000px !important;
+            height: 1400px !important;
 
         }
 
-        .target-list-scroll{
+        .target-list-scroll {
             /* 左移动隐藏滚动条 */
             position: relative;
             left: 26px;
@@ -218,7 +100,7 @@
             overflow-x: hidden;
             overflow-y: scroll;
         }
-        .target-list-handle{
+        .target-list-handle {
             /*height: 2000px;*/
             background-color: white;
             /*margin-top: 10px;*/

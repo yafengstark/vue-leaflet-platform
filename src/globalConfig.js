@@ -14,18 +14,17 @@ import Vue from 'vue'
 // import '../lib/mui/css/icons-extra.css'
 //
 // 直接导入并执行 filters.js 模块，从而为Vue挂载全局的过滤器
-import './filters.js'
+import './filters/filters.js'
 
 
 // 安装 图片预览的插件
 import VuePreview from 'vue2-preview'
 Vue.use(VuePreview)
 
-
 // 配置 axios
-import axios from 'axios'
-// 把 axios 挂载到 Vue的 原型对象上
-Vue.prototype.$http = axios.create({
-  baseURL: 'http://127.0.0.1:8081/api/v1/' // 在全局设置 axios 的请求根路径，这样，在发起请求的时候，就可以不写 根地址了
-})
+// import axios from 'axios'
+// // 把 axios 挂载到 Vue的 原型对象上
+// Vue.prototype.$http = axios.create({
+//   baseURL: 'http://127.0.0.1:8081/api/v1/' // 在全局设置 axios 的请求根路径，这样，在发起请求的时候，就可以不写 根地址了
+// })
 // 衡水老白干

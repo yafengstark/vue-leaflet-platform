@@ -12,13 +12,15 @@ import './globalConfig.js'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 // 导入路由对象
-import router from './router.js'
+import router from './router/router.js'
 
 // iView
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 Vue.use(iView);
 
+import { BackTop } from 'iview';
+Vue.component('i-backTop', BackTop);
 
 // leaflet
 
@@ -47,6 +49,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI);
 
+// cookie
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
+// 在全局中使用axios做请求了。在globeConfig.js已经做了
+// import axios from 'axios'
+// Vue.prototype.$axios = axios
+
 
 // 注册全局的组件
 // import testcom from '../test/02.test.vue'
@@ -54,10 +64,10 @@ Vue.use(ElementUI);
 // Vue.component('mytest', testcom)
 
 // 导入状态管理对象
-import store from './store.js'
+import store from './store/index.js'
 
 // 导入 根组件
-import App from './components/App.vue'
+import App from './pages/App.vue'
 
 const vm = new Vue({
   el: '#app',

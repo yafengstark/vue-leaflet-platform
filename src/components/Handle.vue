@@ -3,7 +3,7 @@
         <!--  操作面板 -->
 
         <div class="button-container">
-            <Button type="text">
+            <Button type="text" @click="createMark">
                 <Icon type="md-create" size="28"/>
                 <br/>新建
             </Button>
@@ -39,7 +39,11 @@
         methods: {
             async getlunbotu() {
 
+            },
+            createMark(){
+                this.$router.push('/target/new')
             }
+
         },
         components: {
             // 注册子组件
