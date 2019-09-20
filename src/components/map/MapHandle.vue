@@ -24,12 +24,18 @@
                 </p>
             </Panel>
             <Panel name="3">
-                乔纳森·伊夫
+                鼠标选点
                 <p slot="content">
-                    乔纳森·伊夫是一位工业设计师，现任Apple公司设计师兼资深副总裁，英国爵士。他曾参与设计了iPod，iMac，iPhone，iPad等众多苹果产品。除了乔布斯，他是对苹果那些著名的产品最有影响力的人。</p>
+
+                </p>
             </Panel>
         </Collapse>
 
+        <div>
+            鼠标选点
+            <i-switch v-model="switch1" @on-change="switchChange"/>
+
+        </div>
 
     </div>
 </template>
@@ -39,8 +45,10 @@
     import Fly from './Fly.vue'
 
     import {mapActions, mapState} from 'vuex'
+    import ISwitch from "../../../node_modules/iview/src/components/switch/switch.vue";
 
     export default {
+
         data() {
             return {
                 location: {
@@ -48,7 +56,8 @@
                     maxLon: 180,
                     minLat: -90,
                     maxLat: 90
-                }
+                },
+                switch1: false
             };
         },
         created() {
@@ -58,8 +67,16 @@
             ...mapState(['myMapHandleObject']),
         },
         methods: {
-            async getlunbotu() {
+            clickShowLocation : function(e) {
+                var mypop = L.popup();
+                var map = this.$store.state.myMap;
 
+                console.log(e.latlng);
+                var content = '该点位置（经度,纬度)：<br>';
+                content = content+  e.latlng.lng + ',' + e.latlng.lat;
+                mypop.setLatLng(e.latlng)
+                    .setContent(content)
+                    .openOn(map);
             },
             handleLocation() {
                 let bounds = this.location.rectangle._bounds;
@@ -78,6 +95,16 @@
                     maxLat: bounds.getNorth()
                 });
 
+
+            },
+            switchChange(status) {
+                this.$Message.info('开关状态：' + status);
+                var map = this.$store.state.myMap;
+                if(status){
+                    map.on('click', this.clickShowLocation);
+                }else{
+                    map.off('click', this.clickShowLocation);
+                }
 
             }
             ,
@@ -177,6 +204,7 @@
         },
         components: {
             // 注册子组件
+            ISwitch,
             Fly
         }
     };
