@@ -32,8 +32,10 @@
 </template>
 
 <script>
-    // 导入自己封装的轮播图子组件
 
+    import {
+        login,
+    } from '../api'
 
     export default {
         data() {
@@ -59,50 +61,32 @@
             }
         },
         methods: {
-            handleSubmit() {
+            async handleSubmit() {
 //                this.$Message.info('开始登录');
                 var message = this.$Message;
                 var router = this.$router;
                 let cookies = this.$cookies;
 
 
-                this.$http.post('/login', {
-                    identity: this.formInline.userName,
-                    password: this.formInline.password
-                })
-                    .then(function (response) {
-
-                        console.log(response);
-                        var body = response.data;
-
-                        if(body.status === 200){
-
-                            console.log('response result');
-                            console.log(response.result);
-
-                            cookies.set('userNo', body.result.user.userNo);
-                            cookies.set('username', body.result.user.username);
-                            cookies.set('token', body.result.user.token);
-
-//                            store.commit('setUser', {
-//                                    userNo: ,
-//                                    username: body.result.user.username,
-//                                    token: body.result.user.token,
-//                                }
-//                            );
-                            message.info('登录成功');
-                            router.push('main')
-                        }else{
-                            message.info('登录失败！'+ body.message);
-                        }
+                const responseBody =  await login(this.formInline.userName, this.formInline.password);
 
 
-                    })
-                    .catch(function (error) {
-                        message.info('登录失败！服务器无响应');
-                        console.log(error);
+                if (responseBody.status === 200) {
+                    cookies.set('userNo', responseBody.result.user.userNo);
+                    cookies.set('username', responseBody.result.user.username);
+                    cookies.set('token', responseBody.result.user.token);
+
+                    this.$store.commit('setUser',{
+                        userNo: responseBody.result.user.userNo,
+                        username: responseBody.result.user.username,
+                        token: responseBody.result.user.token
                     });
 
+                    message.info('登录成功');
+                    router.push('main')
+                } else {
+                    message.info('登录失败！' + responseBody.message);
+                }
 
             }
         }
@@ -111,7 +95,7 @@
 
 <style lang="scss" scoped>
 
-    .login-container{
+    .login-container {
         height: 100%;
         background-color: #141a48;
         margin: auto;
@@ -125,7 +109,7 @@
                 margin: auto;
             }
         }
-        .login-button{
+        .login-button {
             width: 170px;
         }
     }

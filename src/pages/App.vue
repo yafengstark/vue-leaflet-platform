@@ -12,7 +12,6 @@
 
 
     import Header from "../components/Header.vue";
-    import TargetList from "../components/target/TargetList.vue"
     import MyBackTop from '../components/MyBackTop.vue'
 
 
@@ -31,13 +30,12 @@
 
         },
         created() {
-
+            this.$store.commit('setMessageView', this.$Message);
         },
         watch: {},
         computed: {},
         components: {
             Header,
-            TargetList,
             MyBackTop
         }
     };

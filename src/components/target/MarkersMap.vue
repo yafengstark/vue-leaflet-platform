@@ -1,0 +1,189 @@
+<template>
+    <!-- Cesium容器 -->
+    <div class="viewer">
+
+
+        <!--地球容器（开发阶段一注释掉）-->
+        <div class="map-container">
+            <l-map ref="myMap2"
+                   style="height: 80%; width: 100%"
+                   :zoom="zoom"
+                   :center="center"
+                   @update:zoom="zoomUpdated"
+                   @update:center="centerUpdated"
+                   @update:bounds="boundsUpdated"
+            >
+                <!-- 影像 -->
+                <l-tile-layer :url="url"></l-tile-layer>
+
+
+                <!--<l-marker v-for="(mark, index) in targetList"-->
+                <!--:key="index"-->
+                <!--:lat-lng="[mark.lat, mark.lon]" ></l-marker>-->
+
+                <v-marker-cluster :options="clusterOptions" @clusterclick="click()">
+                    <v-marker v-for="l in locations" :key="l.id" :lat-lng="l.latlng" :icon="icon">
+                        <v-popup :content="l.text"></v-popup>
+                    </v-marker>
+                </v-marker-cluster>
+            </l-map>
+            <div class="info" style="height: 15%">
+                <span>Center: {{ center }}</span>
+                <span>Zoom: {{ zoom }}</span>
+                <span>Bounds: {{ bounds }}</span>
+            </div>
+        </div>
+        <div class="handle-container">
+            <handle class="mark-handle"></handle>
+            <map-handle class="map-handle"></map-handle>
+        </div>
+    </div>
+
+</template>
+
+<script>
+
+    import {
+        getmarkDetail,
+        removeMark
+    } from '../../api'
+
+    import Handle from '../Handle.vue'
+    import MapHandle from '../map/MapHandle.vue'
+
+    import {mapActions, mapState} from 'vuex'
+
+    import Vue2LeafletMarkercluster from './Vue2LeafletMarkercluster'
+
+    export default {
+        data() {
+            return {
+                mark: null,
+                edit_mark_id: -1,
+                markerGroup: null,
+                url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                zoom: 3,
+                center: [30, 120],
+                bounds: null,
+                markerLatLngs: []
+            };
+        },
+        computed: {
+            ...mapState(['markList']),
+        },
+        create() {
+
+        },
+        methods: {
+            zoomUpdated(zoom) {
+                this.zoom = zoom;
+            },
+            centerUpdated(center) {
+                this.center = center;
+            },
+            boundsUpdated(bounds) {
+                this.bounds = bounds;
+            },
+            addMarker(lat, lon) {
+                this.markerLatLngs.push([lat, lon]);
+            },
+            edit() {
+                this.$Message.info('' + this.edit_mark_id);
+            },
+            clear() {
+                this.markerGroup.clearLayers();
+            },
+
+
+        },
+        watch: {
+            "markList": function toggle() {
+                //
+
+                if (this.markerGroup != null) {
+                    this.clear();
+                }
+
+                // 添加标注
+                let markers = [];
+                this.markList.forEach(mark => {
+                    let marker = L.marker([mark.lat, mark.lon]);
+                    marker.mark_id = mark.pk_id;
+
+//                    修改是通过跳转链接的方式实现的
+                    marker.bindPopup('<h3>' + mark.name + '</h3><br> '
+                        + mark.description + '<br><a href=#/target/' + mark.pk_id + ' target="_blank"> 修改</a> ')
+                    ;
+
+                    markers.push(marker);
+
+                });
+
+                this.markerGroup = L.layerGroup(markers);
+                this.$refs.myMap2.mapObject.addLayer(this.markerGroup);
+
+                //
+
+            }
+        },
+        mounted() {
+            console.log('map');
+            console.log(this.$refs);
+
+
+            this.$store.commit('clearTargetList');
+            this.$store.dispatch('addMarkList');
+
+            // 点击注入
+//            this.$refs.myMap2.mapObject.on("popupopen", function (e) {
+//                console.log(e);
+//                this.edit_mark_id = e.popup._source.mark_id;
+//            });
+
+            console.log('setmap before');
+            console.log(this.$refs.myMap2.mapObject);
+            this.$store.commit('setMap', {map: this.$refs.myMap2.mapObject});
+            console.log('setmap end');
+
+
+        },
+        components: {
+            // 注册子组件
+            Handle,
+            MapHandle
+        }
+
+    };
+</script>
+
+<style lang="scss" scoped>
+    .viewer {
+        display: flex;
+        /* 换行方式 */
+        flex-wrap: nowrap;
+        /* 对齐方式 */
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        .map-container {
+            /*占据剩余*/
+            flex-grow: 1;
+            height: 600px;
+        }
+        .handle-container {
+            /*  不扩展*/
+            flex-grow: 0;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            .mark-handle {
+
+            }
+            .map-handle {
+
+            }
+        }
+
+    }
+
+</style>

@@ -92,7 +92,10 @@
 </template>
 
 <script>
-    // 导入自己封装的轮播图子组件
+    //
+    import {
+        createMark,
+    } from '../api'
 
 
     export default {
@@ -124,46 +127,24 @@
             cancel() {
                 this.$router.go(-1);
             },
-            create(){
+            async create(){
                 var message = this.$Message;
                 var router = this.$router;
-                let cookies = this.$cookies;
 
-
-                this.$http.post('/addmark', {
+                const responseBody =  await createMark( {
                     lon: this.formItem.lon,
                     lat: this.formItem.lat,
                     name: this.formItem.name,
                     description: this.formItem.description
 
-                })
-                    .then(function (response) {
+                });
 
-                        console.log(response);
-                        var body = response.data;
-
-                        if(body.status === 200){
-
-//                            console.log('response result');
-//                            console.log(response.result);
-//
-//                            cookies.set('userNo', body.result.user.userNo);
-//                            cookies.set('username', body.result.user.username);
-//                            cookies.set('token', body.result.user.token);
-
-
-                            message.info('新建成功');
-                            router.push('/main')
-                        }else{
-                            message.info('新建失败！'+ body.message);
-                        }
-
-
-                    })
-                    .catch(function (error) {
-                        message.info('新建失败！服务器无响应');
-                        console.log(error);
-                    });
+                if (responseBody.status === 200) {
+                    message.info('新建成功');
+                    router.push('/main')
+                } else {
+                    message.info('新建失败！'+ body.message);
+                }
 
             }
 

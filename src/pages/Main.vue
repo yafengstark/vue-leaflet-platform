@@ -13,7 +13,8 @@
             </Header>
             <Layout class="app-content">
                 <Content>
-                    <target-list></target-list>
+                    <router-view></router-view>
+                    <!--<target-list></target-list>-->
                 </Content>
             </Layout>
 
@@ -31,7 +32,6 @@
 
 
     import Header from "../components/Header.vue";
-    import TargetList from "../components/target/TargetList.vue"
     import MyBackTop from '../components/MyBackTop.vue'
 
 
@@ -47,30 +47,23 @@
                 this.$router.go(-1);
                 console.log(this);
             },
-            checkToken() {
-                let token = this.$cookies.get('token');
-                console.log('token')
-                console.log(token);
-                if (token !== null && token !== undefined && token !== '') {
-                    console.log('run here')
-                }else{
-                    this.$router.push('login')
-                }
-            }
 
         },
         created() {
+//            var token2 = this.$cookies.get('token')};
+            this.$store.commit('checkToken', {token: this.$cookies.get('token')});
+            console.log(''+this.$store.state.isPass);
+            if(this.$store.state.isPass){
 
-            this.checkToken();
-
-
+            }else{
+                this.$router.push('/login')
+            }
 
         },
         watch: {},
         computed: {},
         components: {
             Header,
-            TargetList,
             MyBackTop
         }
     };

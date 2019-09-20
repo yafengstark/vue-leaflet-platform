@@ -14,8 +14,8 @@ import {
 } from "../globalConst";
 
 export default {
-   async getMarkList({commit, state}) {
-        const responseBody = await getmark(state.pageIndex, state.targetSubName);
+   async addMarkList({commit, state}) {
+        const responseBody = await getmark(state.pageIndex, state.markSubName);
 
        if(responseBody.status === 200){
            const marks = responseBody.result.records;
@@ -24,13 +24,14 @@ export default {
                return;
            }
 
-           commit('addToTargetList',{marks});
+           commit('addToMarkList',{marks});
        }else{
            state.messageView('info', '加载标注列表失败!'+ responseBody.message);
        }
 
 
     },
+
 
   // 异步获取地址
   async getAddress({commit, state}) {

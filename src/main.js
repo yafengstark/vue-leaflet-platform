@@ -58,6 +58,19 @@ Vue.use(VueCookies)
 // Vue.prototype.$axios = axios
 
 
+// echart
+// import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
+
+// 手动引入 ECharts 各模块来减小打包体积
+
+
+// 如果需要配合 ECharts 扩展使用，只需要直接引入扩展包即可
+// 以 ECharts-GL 为例：
+// 需要安装依赖：npm install --save echarts-gl，并添加如下引用
+// import 'echarts-gl'
+
+// 注册组件后即可使用
+// Vue.component('v-chart', ECharts);
 // 注册全局的组件
 // import testcom from '../test/02.test.vue'
 // 这些全局注册的组件，在任何组件中，都可以使用 < 的形式引入到页面中
@@ -69,11 +82,16 @@ import store from './store/index.js'
 // 导入 根组件
 import App from './pages/App.vue'
 
+
+
+
 const vm = new Vue({
   el: '#app',
   render: c => c(App),
   router, // 挂载路由
   store // 挂载 store
-})
+});
+
+
 
 // import '../test/03.数组的some方法.js'
