@@ -14,18 +14,13 @@
                    @update:bounds="boundsUpdated"
             >
                 <!-- 影像 -->
-                <l-tile-layer :url="url"></l-tile-layer>
+                <!--<l-tile-layer :url="url"></l-tile-layer>-->
 
 
                 <!--<l-marker v-for="(mark, index) in targetList"-->
                 <!--:key="index"-->
                 <!--:lat-lng="[mark.lat, mark.lon]" ></l-marker>-->
 
-                <v-marker-cluster :options="clusterOptions" @clusterclick="click()">
-                    <v-marker v-for="l in locations" :key="l.id" :lat-lng="l.latlng" :icon="icon">
-                        <v-popup :content="l.text"></v-popup>
-                    </v-marker>
-                </v-marker-cluster>
             </l-map>
             <div class="info" style="height: 15%">
                 <span>Center: {{ center }}</span>
@@ -53,16 +48,14 @@
 
     import {mapActions, mapState} from 'vuex'
 
-    import Vue2LeafletMarkercluster from './Vue2LeafletMarkercluster'
-
     export default {
         data() {
             return {
                 mark: null,
                 edit_mark_id: -1,
                 markerGroup: null,
-                url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-                zoom: 3,
+//                url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                zoom: 1,
                 center: [30, 120],
                 bounds: null,
                 markerLatLngs: []
@@ -93,6 +86,18 @@
             clear() {
                 this.markerGroup.clearLayers();
             },
+            loadLayerTreeData() {
+
+                var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                var osm = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 18});
+
+                var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                    maxZoom: 18,
+                    id: 'mapbox.streets'
+                });
+                this.$store.commit('setLayers', {osm, mapbox})
+
+            }
 
 
         },
@@ -112,7 +117,7 @@
 
 //                    修改是通过跳转链接的方式实现的
                     marker.bindPopup('<h3>' + mark.name + '</h3><br> '
-                        + mark.description + '<br><a href=#/target/' + mark.pk_id + ' target="_blank"> 修改</a> ')
+                        + mark.description + '<br><a href=#/mark/' + mark.pk_id + ' target="_blank"> 修改</a> ')
                     ;
 
                     markers.push(marker);
@@ -131,7 +136,7 @@
             console.log(this.$refs);
 
 
-            this.$store.commit('clearTargetList');
+            this.$store.commit('clearMarkList');
             this.$store.dispatch('addMarkList');
 
             // 点击注入
@@ -145,6 +150,8 @@
             this.$store.commit('setMap', {map: this.$refs.myMap2.mapObject});
             console.log('setmap end');
 
+            this.loadLayerTreeData();
+            this.$store.state.myMap.addLayer(this.$store.state.myMapHandleObject.layers['osm'])
 
         },
         components: {

@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 
 // 创建路由对象
 
-//
+// 界面
 
 import Main from '../pages/Main.vue'
 import Login from '../pages/Login.vue'
@@ -14,8 +14,12 @@ import MarkerInfo from '../pages/MarkerInfo.vue'
 
 import Share from '../pages/Share.vue'
 
-import MarkList from '../components/target/MarkList.vue'
-import MarkersMap from '../components/target/MarkersMap.vue'
+import PersonEdit from '../pages/PersonEdit.vue'
+
+// 组件
+
+import MarkList from '../components/mark/MarkList.vue'
+import MarkersMap from '../components/mark/MarkersMap.vue'
 
 import Person from '../components/Person.vue'
 import Setting from '../components/Setting.vue'
@@ -24,6 +28,10 @@ import Amount from '../components/analyse/Amount.vue'
 import UserRank from '../components/analyse/UserRank.vue'
 import MarkRank from '../components/analyse/MarkRank.vue'
 
+
+// 样例
+import markercluster from '../pages/example/markercluster/example.vue'
+import PathTransformExample from '../pages/example/path-transform/example.vue'
 
 const router = new VueRouter({
     routes: [
@@ -52,6 +60,14 @@ const router = new VueRouter({
         {path: '/mark/new', component: NewMarker},
         {path: '/mark/:id', component: MarkerInfo, props: true},
         {path: '/share/:id', component: Share, props: true},
+
+        //
+        {path: '/person/edit', component: PersonEdit},
+
+        // 样例
+
+        {path: '/example/markercluster/example', component: markercluster},
+        {path: '/example/pathtransform/example', component: PathTransformExample},
 
 
         // { path: '/layer', component: LayerContainer },

@@ -1,5 +1,5 @@
 <template>
-    <div class="layout target-new-container">
+    <div class="layout mark-new-container">
         <Layout>
             <Header>
                 <Menu mode="horizontal" theme="dark" active-name="1">
@@ -18,7 +18,7 @@
                 </Menu>
             </Header>
             <Layout>
-                <div class="target-new-form">
+                <div class="mark-new-form">
 
 
 
@@ -136,14 +136,13 @@
                     lat: this.formItem.lat,
                     name: this.formItem.name,
                     description: this.formItem.description
-
                 });
 
                 if (responseBody.status === 200) {
                     message.info('新建成功');
                     router.push('/main')
                 } else {
-                    message.info('新建失败！'+ body.message);
+                    message.info('新建失败！'+ responseBody.message);
                 }
 
             }
@@ -159,8 +158,8 @@
 
 <style lang="scss" scoped>
 
-    .target-new-container{
-        .target-new-form{
+    .mark-new-container{
+        .mark-new-form{
             margin-top: 30px;
             margin-left: 30%;
             margin-right: 30%;

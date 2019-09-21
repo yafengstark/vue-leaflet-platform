@@ -23,9 +23,6 @@
             </Button>
 
 
-
-
-
         </div>
 
 
@@ -42,9 +39,7 @@
 
     export default {
         data() {
-            return {
-
-            };
+            return {};
         },
         computed: {
             ...mapState(['myMapHandleObject']),
@@ -77,6 +72,10 @@
 
     .handle-container {
         display: flex;
+        /*height: 600px;*/
+        /*max-height: 100%;*/
+        /*overflow-y: scroll;*/
+        /*overflow-x: hidden;*/
 
         /*margin: 0px 10px;*/
         margin-top: 10px;

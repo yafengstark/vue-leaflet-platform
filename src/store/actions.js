@@ -15,7 +15,8 @@ import {
 
 export default {
    async addMarkList({commit, state}) {
-        const responseBody = await getmark(state.pageIndex, state.markSubName);
+
+        const responseBody = await getmark(state.user.token, state.pageIndex, state.markSubName);
 
        if(responseBody.status === 200){
            const marks = responseBody.result.records;

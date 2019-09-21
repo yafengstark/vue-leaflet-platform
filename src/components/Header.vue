@@ -54,6 +54,7 @@
                     </template>
                     <MenuItem name="7-1" to="/main/person">个人主页</MenuItem>
                     <MenuItem name="7-2" to="/main/setting">设置</MenuItem>
+                    <MenuItem name="7-3" ><a @click="logout">退出</a></MenuItem>
                     <!--<MenuGroup title="使用">-->
                     <!--<MenuItem name="3-1">新增和启动</MenuItem>-->
                     <!--<MenuItem name="3-2">活跃分析</MenuItem>-->
@@ -95,6 +96,10 @@
                 this.$store.commit('setMarkSubName', {name});
                 this.$store.commit('clearMarkList');//
                 this.$store.dispatch('addMarkList');
+            },
+            logout() {
+                this.$cookies.remove('token');
+                this.$router.push('/login');
             }
         },
         components: {

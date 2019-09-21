@@ -53,6 +53,13 @@
 //            var token2 = this.$cookies.get('token')};
             this.$store.commit('checkToken', {token: this.$cookies.get('token')});
             console.log(''+this.$store.state.isPass);
+
+            this.$store.commit('setUser',{
+                userNo: '',
+                username: '',
+                token: this.$cookies.get('token')
+            });
+
             if(this.$store.state.isPass){
 
             }else{

@@ -10,7 +10,7 @@
                                 <div class='item'><h1>{{ item.name }}</h1></div>
 
                                 <div>
-                                    <route-link  :to="'/share/'+ markId"><Icon type="md-share-alt" size="24" /></route-link>
+                                    <router-link  :to="'/share/'+ item.pk_id" target="_blank"><Icon type="md-share-alt" size="24" /></router-link>
                                 </div>
                             </div>
                             <p>
@@ -52,10 +52,7 @@
         },
         mounted() {
 
-
-//            this.addMarkList();
             this.$store.dispatch('addMarkList')
-
         },
         computed: {
             ...mapState(['markList']),
@@ -92,6 +89,7 @@
         display: flex;
         margin-right: 10px;
         height: 1500px;
+        margin-left: 50px;
 
         .ivu-scroll-container {
             height: 1400px !important;

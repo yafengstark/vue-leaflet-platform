@@ -1,7 +1,7 @@
 <template>
     <div class="map-handle-container">
 
-        <Collapse simple>
+        <Collapse>
             <Panel name="1">
                 快速跳转
                 <p slot="content">
@@ -24,11 +24,38 @@
                 </p>
             </Panel>
             <Panel name="3">
-                鼠标选点
+                图层控制
                 <p slot="content">
-
+                    <layer-tree></layer-tree>
                 </p>
             </Panel>
+            <Panel name="4">
+                影像检索
+                <p slot="content">
+                    <imagery-search></imagery-search>
+                    <Collapse accordion>
+                        <Panel name="1-1">
+                            结果
+                <p slot="content">
+                    <Card :bordered="false">
+                <p slot="title">ahfafjffaf.tif</p>
+                <p>
+                    拍摄时间：
+                    范围
+
+
+                     </p>
+                </Card>
+                <Card :bordered="false">
+                    <p slot="title">No border title</p>
+                    <p>Content of no border type. Content of no border type. Content of no border type. Content of no border type. </p>
+                </Card>
+                </p>
+            </Panel>
+
+        </Collapse>
+        </p>
+        </Panel>
         </Collapse>
 
         <div>
@@ -43,6 +70,8 @@
 <script>
     // 导入自己封装的轮播图子组件
     import Fly from './Fly.vue'
+    import LayerTree from './LayerTree.vue'
+    import ImagerySearch from './ImagerySearch.vue'
 
     import {mapActions, mapState} from 'vuex'
     import ISwitch from "../../../node_modules/iview/src/components/switch/switch.vue";
@@ -67,13 +96,13 @@
             ...mapState(['myMapHandleObject']),
         },
         methods: {
-            clickShowLocation : function(e) {
+            clickShowLocation: function (e) {
                 var mypop = L.popup();
                 var map = this.$store.state.myMap;
 
                 console.log(e.latlng);
                 var content = '该点位置（经度,纬度)：<br>';
-                content = content+  e.latlng.lng + ',' + e.latlng.lat;
+                content = content + e.latlng.lng + ',' + e.latlng.lat;
                 mypop.setLatLng(e.latlng)
                     .setContent(content)
                     .openOn(map);
@@ -100,9 +129,9 @@
             switchChange(status) {
                 this.$Message.info('开关状态：' + status);
                 var map = this.$store.state.myMap;
-                if(status){
+                if (status) {
                     map.on('click', this.clickShowLocation);
-                }else{
+                } else {
                     map.off('click', this.clickShowLocation);
                 }
 
@@ -205,7 +234,9 @@
         components: {
             // 注册子组件
             ISwitch,
-            Fly
+            Fly,
+            LayerTree,
+            ImagerySearch
         }
     };
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 
-        分享{{id}}
+        <!--分享{{id}}-->
 
         <map-container :id="id"></map-container>
     </div>

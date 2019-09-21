@@ -10,6 +10,10 @@ export default {
             maxLon: 180,
             minLat: -90,
             maxLat: 90,
+        },
+        layers:{
+            osm: null,
+            mapbox: null
         }
 
     },

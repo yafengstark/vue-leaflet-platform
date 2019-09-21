@@ -55,6 +55,8 @@
         },
         methods: {
             fly() {
+
+                // TODO: check
                 let lat = this.lat;
                 let lon = this.lon;
                 let zoom = this.zoom;

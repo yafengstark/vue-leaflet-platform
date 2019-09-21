@@ -122,7 +122,7 @@
     } from '../api'
 
     import MapContainer from '../components/MapContainer.vue'
-    import Comment from '../components/target/Comment.vue'
+    import Comment from '../components/mark/Comment.vue'
 
     export default {
         data() {

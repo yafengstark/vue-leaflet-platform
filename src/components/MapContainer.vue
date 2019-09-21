@@ -47,7 +47,7 @@
                 lat:0,
                 lon:0,
                 url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-                zoom: 3,
+                zoom: 13,
                 center: [47.413220, -1.219482],
                 bounds: null,
                 markerLatLngs: [
@@ -78,7 +78,7 @@
             },
             async getInfo() {
 
-                const responseBody =  await getmarkDetail(this.id);
+                const responseBody =  await getmarkDetail('',this.id);
                 if (responseBody.status === 200) {
 
 
@@ -88,8 +88,11 @@
                     console.log(this.mark);
                     setTimeout(()=>{
                         this.$refs.myMap2.mapObject.flyTo([this.mark.lat, this.mark.lon], 6);
-                    }, 1);
+                    }, 1000);
                     //                    this.addMarker(this.mark.lat, this.mark.lon);
+
+//                    this.$refs.myMap2.mapObject.center = [this.mark.lat, this.mark.lon];
+//                    this.$refs.myMap2.mapObject.center.lat = this.mark.lat;
 
                     L.marker([this.mark.lat, this.mark.lon]).addTo(this.$refs.myMap2.mapObject)
                         .bindPopup('<h3>'+this.mark.name+'</h3><br> '+ this.mark.description)

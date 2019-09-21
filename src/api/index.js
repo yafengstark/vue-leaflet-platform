@@ -6,32 +6,46 @@ import ajax from './ajax'
 // const BASE_URL = 'http://localhost:4000'
 const BASE_URL = 'http://127.0.0.1:8081/api/v1';
 
+
+// ---------- mark --------------
 // 1、获取标注
-export const getmark = ( pageIndex, name) => ajax(BASE_URL+'/getmark', {pageIndex, name});
+export const getmark = (token, pageIndex, name) => ajax(BASE_URL + '/getmark', {pageIndex, name}, token);
 
 // 获取标注详情
-export const getmarkDetail = (markId) => ajax(BASE_URL+'/getmarkdetail', {markId});
+export const getmarkDetail = (token, markId) => ajax(BASE_URL + '/getmarkdetail', {markId}, token);
 
 // 删除标注
-export const  removeMark = (markId) => ajax(BASE_URL+'/removeMark', {markId});
+export const removeMark = (token, markId) => ajax(BASE_URL + '/removeMark', {markId}, token);
+
+// 新建模标注
+export const createMark = (token, target) => ajax(BASE_URL + '/addmark', target, token, 'POST');
 
 //  获取标注评论
 
-export const getMarkComments = (markId) => ajax(BASE_URL+'/getMarkComments', {markId});
+// ----------- comment ---------------
 
-export const postComment = (token, markId, content) =>  ajax(BASE_URL+'/addMarkCom?markId='+markId , {content}, token, 'POST');
+export const getMarkComments = (token, markId) => ajax(BASE_URL + '/getMarkComments', {markId}, token);
 
+export const postComment = (token, markId, content) => ajax(BASE_URL + '/addMarkCom?markId=' + markId, {content}, token, 'POST');
+
+// --------- user ---------------
 // 2、登录
-export const login = (identity, password) => ajax(BASE_URL+'/login', {identity, password}, '', 'POST');
+export const login = (identity, password) => ajax(BASE_URL + '/login', {identity, password}, '', 'POST');
 
 // 获取当前用户
-export const getCurrentUser =  (token) => ajax(BASE_URL+'/user/currentUser', {}, token);
+export const getCurrentUser = (token) => ajax(BASE_URL + '/user/currentUser', {}, token);
 
 // 获取用户部门统计数据
-export const getUserDepartments =  (token) => ajax(BASE_URL+'/user/getUserDepartments', {}, token);
+export const getUserDepartments = (token) => ajax(BASE_URL + '/user/getUserDepartments', {}, token);
 
-// 新建模标注
-export const createMark = (target) => ajax(BASE_URL+'/addmark', target, 'POST');
+// 2、修改用户信息
+export const editUser = (token, username, summarize, description, mobile, phone, department) => ajax(BASE_URL + '/user/editUser',
+    {username, summarize, description, mobile, phone, department}, token, 'POST');
+
+export const resetPassword = (token, oldPassword, password, rePassword) => ajax(BASE_URL + '/user/password',
+    {oldPassword, password, rePassword}, token, 'POST');
+
+// ------------ department --------------------
 
 //  分类码
-export const getClazzCode = () => ajax(BASE_URL+'/getClazzCode');
+export const getClazzCode = (token) => ajax(BASE_URL + '/getClazzCode',{}, token);

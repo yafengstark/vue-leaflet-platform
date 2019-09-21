@@ -62,6 +62,10 @@ export default {
             maxLat: maxLat,
         };
     },
+    setLayers(state, {osm, mapbox}){
+        state.myMapHandleObject.layers.osm = osm;
+        state.myMapHandleObject.layers.mapbox = mapbox;
+    },
     /**
      * 地图跳转
      * @param state

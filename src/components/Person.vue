@@ -18,7 +18,10 @@
                     <p>邮箱: {{email}}</p>
                 </div>
             </div>
-            <Button type="primary" size="small">编辑个人资料</Button>
+            <router-link to="/person/edit" target="_blank">
+                <Button type="primary" size="small" >编辑个人资料</Button>
+            </router-link>
+
         </div>
 
 
