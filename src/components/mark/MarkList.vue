@@ -10,7 +10,7 @@
                                 <div class='item'><h1>{{ item.name }}</h1></div>
 
                                 <div>
-                                    <Button type="text" @click.prevent="share(item.pk_id)"><Icon type="md-share-alt" size="24" /></Button>
+                                    <route-link  :to="'/share/'+ markId"><Icon type="md-share-alt" size="24" /></route-link>
                                 </div>
                             </div>
                             <p>
@@ -75,10 +75,6 @@
             },
             delete(markId){
                 this.$Message.info('delete'+ markId);
-            },
-            share(markId){
-                this.$Message.info('share:'+ markId);
-                this.$router.push('/share/'+ markId);
             }
         },
         components: {
