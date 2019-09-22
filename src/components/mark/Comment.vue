@@ -58,7 +58,7 @@
         },
         methods: {
             async getComments() {
-                const responseBody = await getMarkComments(this.id);
+                const responseBody = await getMarkComments(this.$cookies.get('token'),this.id);
                 if (responseBody.status === 200) {
 
                     responseBody.result.forEach((comment) => {
