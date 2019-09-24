@@ -31,8 +31,8 @@ export default {
         console.log(token);
 
         if (token !== null && token !== undefined && token !== '') {
-             state.isPass = true;
-        }else{
+            state.isPass = true;
+        } else {
             state.isPass = false;
         }
         console.log(state.isPass);
@@ -42,7 +42,7 @@ export default {
      * @param state
      * @param map
      */
-    setMap(state, {map}){
+    setMap(state, {map}) {
         console.log('store.setMap begin----');
         console.log(map);
         state.myMap = map;
@@ -53,7 +53,7 @@ export default {
      * @param state
      * @param location
      */
-    setMyMapRect(state, {minLon, maxLon, minLat, maxLat}){
+    setMyMapRect(state, {minLon, maxLon, minLat, maxLat}) {
 
         state.myMapHandleObject.rectangle = {
             minLon: minLon,
@@ -62,9 +62,36 @@ export default {
             maxLat: maxLat,
         };
     },
-    setLayers(state, {osm, mapbox}){
+    setLayers(state, {osm, mapbox}) {
         state.myMapHandleObject.layers.osm = osm;
         state.myMapHandleObject.layers.mapbox = mapbox;
+    },
+    setEditMark(state, {
+        markId,
+        name,
+        lon,
+        lat,
+        username,
+        description,
+        createTime,
+        updateTime,
+        clazzCode,
+    }) {
+        console.log(markId)
+        state.editMark.markId = markId;
+        state.editMark.name = name;
+        state.editMark.lon = lon;
+        state.editMark.lat = lat;
+        state.editMark.username = username;
+        state.editMark.description = description;
+        state.editMark.createTime = createTime;
+        state.editMark.updateTime = updateTime;
+        state.editMark.clazzCode = clazzCode;
+
+    },
+    setEditMarkLocation(state, {lon, lat}) {
+        state.editMark.lon = lon;
+        state.editMark.lat = lat;
     },
     /**
      * 地图跳转
@@ -73,7 +100,7 @@ export default {
      * @param lon
      * @param zoom
      */
-    fly(state,{lat, lon,zoom}){
+    fly(state, {lat, lon, zoom}) {
         // console.log('store fly');
         // console.log(state.myMap);
         state.myMap.flyTo([lat, lon], zoom);

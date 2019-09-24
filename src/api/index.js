@@ -20,6 +20,12 @@ export const removeMark = (token, markId) => ajax(BASE_URL + '/removeMark', {mar
 // 新建模标注
 export const createMark = (token, target) => ajax(BASE_URL + '/addmark', target, token, 'POST');
 
+// 修改标注位置
+export const  resetMarkLocation = (token, markId, lon, lat) => ajax(BASE_URL + '/resetMarkLocation?markId=' + markId,
+    {lon, lat}, token, 'POST');
+export const  resetMarkDescription = (token, markId, description) => ajax(BASE_URL + '/resetMarkDescription?markId=' + markId,
+    {description}, token, 'POST');
+
 //  获取标注评论
 
 // ----------- comment ---------------
