@@ -18,15 +18,17 @@ export default {
 
         const responseBody = await getmark(state.user.token, state.pageIndex, state.markSubName);
 
-       if(responseBody.status === 200){
+       if(responseBody.status === 200) {
            const marks = responseBody.result.records;
-           if(marks.length === 0){
+           if (marks.length === 0) {
                state.messageView('info', '没有更多');
                return;
            }
 
-           commit('addToMarkList',{marks});
-       }else{
+           commit('addToMarkList', {marks});
+           commit('setMarkCount', {count: responseBody.result.total});
+       }
+       else{
            state.messageView('info', '加载标注列表失败!'+ responseBody.message);
        }
 

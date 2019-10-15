@@ -32,30 +32,10 @@
             <Panel name="4">
                 影像检索
                 <p slot="content">
-                    <imagery-search></imagery-search>
-                    <Collapse accordion>
-                        <Panel name="1-1">
-                            结果
-                <p slot="content">
-                    <Card :bordered="false">
-                <p slot="title">ahfafjffaf.tif</p>
-                <p>
-                    拍摄时间：
-                    范围
 
-
-                     </p>
-                </Card>
-                <Card :bordered="false">
-                    <p slot="title">No border title</p>
-                    <p>Content of no border type. Content of no border type. Content of no border type. Content of no border type. </p>
-                </Card>
                 </p>
             </Panel>
 
-        </Collapse>
-        </p>
-        </Panel>
         </Collapse>
 
         <div>
@@ -244,6 +224,6 @@
 <style lang="scss" scoped>
 
     .map-handle-container {
-        width: 200px;
+        width: 100%;
     }
 </style>

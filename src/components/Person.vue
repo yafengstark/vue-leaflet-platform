@@ -52,6 +52,11 @@
             </div>
         </div>
 
+        <div>
+            <h1>收藏夹</h1>
+
+        </div>
+
     </div>
 </template>
 

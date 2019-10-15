@@ -16,6 +16,8 @@ import Share from '../pages/Share.vue'
 
 import PersonEdit from '../pages/PersonEdit.vue'
 
+import LeafletMap from '../pages/LeafletMap.vue'
+
 // 组件
 
 import MarkList from '../components/mark/MarkList.vue'
@@ -27,6 +29,7 @@ import Setting from '../components/Setting.vue'
 import Amount from '../components/analyse/Amount.vue'
 import UserRank from '../components/analyse/UserRank.vue'
 import MarkRank from '../components/analyse/MarkRank.vue'
+
 
 
 // 样例
@@ -71,6 +74,9 @@ const router = new VueRouter({
 
 
         // { path: '/layer', component: LayerContainer },
+
+        // leaflet map
+        {path: '/map', component: LeafletMap},
 
 
     ],

@@ -87,7 +87,6 @@ export default {
         state.editMark.createTime = createTime;
         state.editMark.updateTime = updateTime;
         state.editMark.clazzCode = clazzCode;
-
     },
     setEditMarkLocation(state, {lon, lat}) {
         state.editMark.lon = lon;
@@ -111,7 +110,10 @@ export default {
      * @param name 关键字
      */
     setMarkSubName(state, {name}) {
-        state.targetSubName = name;
+        state.markSubName = name;
+    },
+    setPageIndex(state, {index}) {
+        state.pageIndex = index;
     },
     pageIndexIncrement(state) {
         state.pageIndex++;
@@ -122,8 +124,8 @@ export default {
      * @param marks
      */
     addToMarkList(state, {marks}) {
-
-
+        // marks = [];
+        state.markList = [];
         marks.forEach(mark => {
             state.markList.push(
                 {
@@ -140,6 +142,16 @@ export default {
                 }
             );
         });
+
+    },
+    /**
+     *
+     * @param state
+     * @param map
+     */
+    setMarkCount(state, {count}) {
+
+        state.markAmount = count;
 
     },
     removeMarkFromList(state, {markId}) {

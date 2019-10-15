@@ -36,5 +36,6 @@ export default {
     },
     markList: [], // 首页目标列表
     pageIndex: 1, // 首页分页下标
+    markAmount: 0, // 共有多少标注
     markSubName: '', // 标注部分名称
 }

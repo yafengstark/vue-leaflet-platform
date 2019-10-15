@@ -5,33 +5,36 @@
 
         <!--地球容器（开发阶段一注释掉）-->
         <div class="map-container">
-            <l-map ref="myMap2"
-                   style="height: 80%; width: 100%"
-                   :zoom="zoom"
-                   :center="center"
-                   @update:zoom="zoomUpdated"
-                   @update:center="centerUpdated"
-                   @update:bounds="boundsUpdated"
-            >
-                <!-- 影像 -->
-                <!--<l-tile-layer :url="url"></l-tile-layer>-->
+            <div>
+                <l-map ref="myMap2"
+                       style="height: 80%; width: 100%"
+                       :zoom="zoom"
+                       :center="center"
+                       @update:zoom="zoomUpdated"
+                       @update:center="centerUpdated"
+                       @update:bounds="boundsUpdated"
+                >
+                    <!-- 影像 -->
+                    <!--<l-tile-layer :url="url"></l-tile-layer>-->
 
 
-                <!--<l-marker v-for="(mark, index) in targetList"-->
-                <!--:key="index"-->
-                <!--:lat-lng="[mark.lat, mark.lon]" ></l-marker>-->
+                    <!--<l-marker v-for="(mark, index) in targetList"-->
+                    <!--:key="index"-->
+                    <!--:lat-lng="[mark.lat, mark.lon]" ></l-marker>-->
 
-            </l-map>
-            <div class="info" style="height: 15%">
-                <span>Center: {{ center }}</span>
-                <span>Zoom: {{ zoom }}</span>
-                <span>Bounds: {{ bounds }}</span>
+                </l-map>
             </div>
+
+            <!--<div class="info" style="height: 15%">-->
+            <!--<span>Center: {{ center }}</span>-->
+            <!--<span>Zoom: {{ zoom }}</span>-->
+            <!--<span>Bounds: {{ bounds }}</span>-->
+            <!--</div>-->
         </div>
-        <div class="handle-container">
-            <handle class="mark-handle"></handle>
-            <map-handle class="map-handle"></map-handle>
-        </div>
+        <!--<div class="handle-container">-->
+            <!--<handle class="mark-handle"></handle>-->
+            <!--<map-handle class="map-handle"></map-handle>-->
+        <!--</div>-->
     </div>
 
 </template>
@@ -47,6 +50,8 @@
     import MapHandle from '../map/MapHandle.vue'
 
     import {mapActions, mapState} from 'vuex'
+
+//    const fullscreen = require("../../../node_modules/leaflet.fullscreen/Control.FullScreen");
 
     export default {
         data() {
@@ -88,7 +93,7 @@
             },
             loadLayerTreeData() {
 
-                var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
                 var osm = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 18});
 
                 var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -132,18 +137,13 @@
             }
         },
         mounted() {
-            console.log('map');
-            console.log(this.$refs);
+
+
 
 
             this.$store.commit('clearMarkList');
             this.$store.dispatch('addMarkList');
 
-            // 点击注入
-//            this.$refs.myMap2.mapObject.on("popupopen", function (e) {
-//                console.log(e);
-//                this.edit_mark_id = e.popup._source.mark_id;
-//            });
 
             console.log('setmap before');
             console.log(this.$refs.myMap2.mapObject);
@@ -151,8 +151,14 @@
             console.log('setmap end');
 
             this.loadLayerTreeData();
-            this.$store.state.myMap.addLayer(this.$store.state.myMapHandleObject.layers['osm'])
+            this.$store.state.myMap.addLayer(this.$store.state.myMapHandleObject.layers['osm']);
 
+            console.log(this.$store.state.myMap);
+
+            const fullscreen = require("../../../node_modules/leaflet.fullscreen/Control.FullScreen");
+            this.$store.state.myMap.fullscreenControl = true;
+            console.log("his.$store.state.myMap");
+            console.log(this.$store.state.myMap);
         },
         components: {
             // 注册子组件
@@ -173,9 +179,15 @@
         width: 100%;
         height: 100%;
         .map-container {
-            /*占据剩余*/
             flex-grow: 1;
-            height: 600px;
+            display: flex;
+            flex-direction: column;
+            div {
+                /*占据剩余*/
+                flex-grow: 1;
+            }
+            /*height: 600px;*/
+            /*minheight: ;*/
         }
         .handle-container {
             /*  不扩展*/
