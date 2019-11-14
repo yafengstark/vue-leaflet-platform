@@ -2,82 +2,79 @@
 
     <div class="viewer">
 
-         <!--地球容器-->
+        <!--地球容器-->
         <div style="height: 100%; width: 100%">
 
             <l-map ref="myMap2"
-                    style="height: 80%; width: 100%"
-                    :zoom="zoom"
-                    :center="center"
-                    @update:zoom="zoomUpdated"
-                    @update:center="centerUpdated"
-                    @update:bounds="boundsUpdated"
+                   style="height: 80%; width: 100%"
+                   :zoom="zoom"
+                   :center="center"
+                   @update:zoom="zoomUpdated"
+                   @update:center="centerUpdated"
+                   @update:bounds="boundsUpdated"
             >
                 <l-tile-layer :url="url"></l-tile-layer>
-
-
 
             </l-map>
         </div>
 
-        <div ref="logo">
-            测试
-            <Button type="primary" @click="info">Display info prompt</Button>
-            <Col span="12">
-            <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-            </Col>
+        <!--<div ref="logo">-->
+        <!--测试-->
+        <!--<Button type="primary" @click="info">Display info prompt</Button>-->
+        <!--<Col span="12">-->
+        <!--<DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>-->
+        <!--</Col>-->
+        <!--</div>-->
+        <div ref="toolPanel">
+            <map-handle ></map-handle>
         </div>
-    </div>
 
+    </div>
 
 
 </template>
 
 <script>
     // 导入自己封装的子组件
-    import {
-    } from '../api'
+    import {} from '../api'
+
+    import MapHandle from "../components/map/MapHandle.vue";
 
     export default {
-        data () {
+        data() {
             return {
                 mark: null,
-                lat:0,
-                lon:0,
+                lat: 0,
+                lon: 0,
                 url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
                 zoom: 3,
                 center: [47.413220, -1.219482],
                 bounds: null,
-                markerLatLngs: [
-
-                    ]
+                markerLatLngs: []
             };
         },
         create() {
-//            this.getInfo();
-
-        },
-        watch: {
 
 
         },
+        watch: {},
         methods: {
-            zoomUpdated (zoom) {
+            zoomUpdated(zoom) {
                 this.zoom = zoom;
             },
-            centerUpdated (center) {
+            centerUpdated(center) {
                 this.center = center;
             },
-            boundsUpdated (bounds) {
+            boundsUpdated(bounds) {
                 this.bounds = bounds;
             },
             addMarker(lat, lon) {
                 this.markerLatLngs.push([lat, lon]);
             },
-            info () {
+            info() {
                 this.$Message.info('This is a info tip');
             },
-            loadControl(){
+            loadControl() {
                 var that = this;
 
                 L.Control.Logo = L.Control.extend({
@@ -93,7 +90,8 @@
                         //创建一个class为 leaflet-control-container的div
 
                         this._container = L.DomUtil.create('div', 'leaflet-control-container');
-                        var logo = that.$refs.logo;
+                        var logo = that.$refs.toolPanel;
+
 
                         return logo;
                     },
@@ -108,7 +106,12 @@
                 });
 
             },
-            async getInfo() {
+            async initMap() {
+
+                console.log('setmap before');
+                console.log(this.$refs.myMap2.mapObject);
+                this.$store.commit('setMap', {map: this.$refs.myMap2.mapObject});
+                console.log('setmap end');
 
                 this.loadControl();
 
@@ -122,9 +125,12 @@
             },
         },
         mounted() {
-            this.getInfo();
+            this.initMap();
 
         },
+        components: {
+            MapHandle
+        }
     };
 </script>
 
@@ -132,6 +138,6 @@
 
     .viewer {
         width: 100%;
-        height: 300px;
+        height: 800px;
     }
 </style>

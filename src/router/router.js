@@ -17,7 +17,7 @@ import Share from '../pages/Share.vue'
 import PersonEdit from '../pages/PersonEdit.vue'
 
 import LeafletMap from '../pages/LeafletMap.vue'
-
+import LeafletHeatMap from '../pages/LeafletHeatMap.vue'
 // 组件
 
 import MarkList from '../components/mark/MarkList.vue'
@@ -31,6 +31,7 @@ import UserRank from '../components/analyse/UserRank.vue'
 import MarkRank from '../components/analyse/MarkRank.vue'
 
 
+import FileManage from '../pages/FileManage.vue'
 
 // 样例
 import markercluster from '../pages/example/markercluster/example.vue'
@@ -77,6 +78,10 @@ const router = new VueRouter({
 
         // leaflet map
         {path: '/map', component: LeafletMap},
+        {path: '/heatMap', component: LeafletHeatMap},
+
+        // 文件管理
+        {path: '/file', component: FileManage},
 
 
     ],

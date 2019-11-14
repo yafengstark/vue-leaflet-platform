@@ -55,3 +55,7 @@ export const resetPassword = (token, oldPassword, password, rePassword) => ajax(
 
 //  分类码
 export const getClazzCode = (token) => ajax(BASE_URL + '/getClazzCode',{}, token);
+
+// ------------- 文件系统 ------------------
+
+export const  getBuckets= () => ajax(BASE_URL + '/getBuckets',{}, '');

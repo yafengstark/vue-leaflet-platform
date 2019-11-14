@@ -1,48 +1,58 @@
 <template>
     <div class="map-handle-container">
-
-        <Collapse>
-            <Panel name="1">
-                快速跳转
-                <p slot="content">
-                    <fly></fly>
-                </p>
-            </Panel>
-            <Panel name="2">
-                画框选择
-                <p slot="content">
-                    <label>最小经度：</label><Input class="input" v-model="location.minLon"
-                                               placeholder="120" style="width: 300px"/>
-                    <label>最大经度：</label><Input class="input" v-model="location.maxLon"
-                                               placeholder="120" style="width: 300px"/>
-                    <label>最小纬度：</label><Input class="input" v-model="location.minLat"
-                                               placeholder="120" style="width: 300px"/>
-                    <label>最大纬度：</label><Input class="input" v-model="location.maxLat"
-                                               placeholder="120" style="width: 300px"/>
-                    <Button type="primary" size="small" @click="addRectArea">选择</Button>
-                    <Button type="primary" size="small" @click="clearFrame">取消</Button>
-                </p>
-            </Panel>
-            <Panel name="3">
-                图层控制
-                <p slot="content">
-                    <layer-tree></layer-tree>
-                </p>
-            </Panel>
-            <Panel name="4">
-                影像检索
-                <p slot="content">
-
-                </p>
-            </Panel>
-
-        </Collapse>
-
         <div>
-            鼠标选点
-            <i-switch v-model="switch1" @on-change="switchChange"/>
-
+            <Button type="text" @click="isClosed=false"><Icon type="md-arrow-back" /></Button>
+            <Button type="text" @click="isClosed=true"><Icon type="md-arrow-forward" /></Button>
         </div>
+        <div :class="{close: isClosed, open: !isClosed}">
+
+            <Collapse >
+                <Panel name="1">
+                    快速跳转
+                    <p slot="content">
+                        <fly></fly>
+                    </p>
+                </Panel>
+                <Panel name="2">
+                    画框选择
+                    <p slot="content">
+                        <label>最小经度：</label><Input class="input" v-model="location.minLon"
+                                                   placeholder="120" />
+                        <label>最大经度：</label><Input class="input" v-model="location.maxLon"
+                                                   placeholder="120" />
+                        <label>最小纬度：</label><Input class="input" v-model="location.minLat"
+                                                   placeholder="120" />
+                        <label>最大纬度：</label><Input class="input" v-model="location.maxLat"
+                                                   placeholder="120" />
+                        <Button type="primary" size="small" @click="addRectArea">选择</Button>
+                        <Button type="primary" size="small" @click="clearFrame">取消</Button>
+                    </p>
+                </Panel>
+                <Panel name="3">
+                    图层控制
+                    <p slot="content">
+                        <layer-tree></layer-tree>
+                    </p>
+                </Panel>
+                <Panel name="4">
+                    影像检索
+                    <p slot="content">
+
+                    </p>
+                </Panel>
+                <Panel name="5">
+                    鼠标选点
+                    <p slot="content">
+                        开启：<i-switch v-model="switch1" @on-change="switchChange"/>
+                    </p>
+                </Panel>
+
+            </Collapse>
+        </div>
+
+
+
+
 
     </div>
 </template>
@@ -60,13 +70,15 @@
 
         data() {
             return {
+                isClosed: false,
                 location: {
                     minLon: -180,
                     maxLon: 180,
                     minLat: -90,
                     maxLat: 90
                 },
-                switch1: false
+                switch1: false,
+
             };
         },
         created() {
@@ -225,5 +237,16 @@
 
     .map-handle-container {
         width: 100%;
+        background-color: white;
+
+        .close{
+            width: 50px;
+            display: none;
+        }
+        .open{
+            width: 350px;
+            display: block;
+        }
+
     }
 </style>
