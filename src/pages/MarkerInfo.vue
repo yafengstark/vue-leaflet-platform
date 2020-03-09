@@ -269,7 +269,6 @@
             Comment,
             LocationSelector,
             EditDescription
-
         }
     };
 </script>

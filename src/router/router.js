@@ -33,6 +33,11 @@ import MarkRank from '../components/analyse/MarkRank.vue'
 
 import FileManage from '../pages/FileManage.vue'
 
+import BrowserNavigation from '../pages/BrowserNavigation.vue'
+
+
+import Geoserver from '../pages/Geoserver.vue'
+
 // 样例
 import markercluster from '../pages/example/markercluster/example.vue'
 import PathTransformExample from '../pages/example/path-transform/example.vue'
@@ -82,6 +87,11 @@ const router = new VueRouter({
 
         // 文件管理
         {path: '/file', component: FileManage},
+        // navigation
+        {path: '/navigation', component: BrowserNavigation},
+
+        // geoserver
+        {path: '/geoserver', component: Geoserver},
 
 
     ],
